@@ -43,3 +43,29 @@ bin_ip = "0000101000000001000000111000011"
 адресі може бути 32 біти, а 32 - 28 = 4)
 00001010000000010000000111000000
 """
+
+ip_with_mask = input("Enter network address: ")
+ip_str, mask_str = ip_with_mask.split(" ")
+ip_str = ip_str.split('.')
+mask_str = mask_str.split('.')
+
+ip = list(map(int, ip_str))
+mask = list(map(int, mask_str))
+
+ip_bin = "".join(f"{octet:08b}" for octet in ip)
+mask_bin = "".join(f"{octet:08b}" for octet in mask)
+network_bin = "".join(ip_bit if mask_bit == "1" else "0" for ip_bit, mask_bit in zip(ip_bin, mask_bin))
+
+network = [int(network_bin[i:i+8], 2) for i in range(0, 32, 8)]
+network_str = list(map(str, network))
+
+print("Network:")
+print("{:10}{:10}{:10}{:10}".format(*network_str))
+print("{:08b}  {:08b}  {:08b}  {:08b}".format(*network))
+print()
+
+print("Mask:")
+prefix = mask_bin.count("1")
+print(f"/{prefix}")
+print("{:10}{:10}{:10}{:10}".format(*mask_str))
+print("{:08b}  {:08b}  {:08b}  {:08b}".format(*mask))

@@ -28,3 +28,6 @@ words = [
     'Guido', 'van', 'Rossum', 'began', 'working', 'on',
     'Python', 'in', 'the', 'late', '1980s',
 ]
+
+user_index = int(input("Enter separator: "))
+print(words[user_index].lower())

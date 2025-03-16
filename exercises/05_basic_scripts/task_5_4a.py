@@ -49,3 +49,18 @@ Mask:
 255       255       255       240
 11111111  11111111  11111111  11110000
 """
+
+ip_with_mask = input("Enter network address: ")
+ip = ip_with_mask.split(" ")[0].split(".")
+mask = ip_with_mask.split(" ")[1].split(".")
+print("Network:")
+print("{:10}{:10}{:10}{:10}".format(*ip))
+ip_bin = list(map(lambda x: int(x), ip))
+print("{:08b}  {:08b}  {:08b}  {:08b}".format(*ip_bin))
+print()
+print("Mask:")
+mask_bin = list(map(lambda x: int(x), mask))
+mask_str = "{:08b}  {:08b}  {:08b}  {:08b}".format(*mask_bin)
+print("/", mask_str.count("1"), sep="")
+print("{:10}{:10}{:10}{:10}".format(*mask))
+print(mask_str)

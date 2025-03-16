@@ -16,3 +16,9 @@
   стовпцями для поділу октетів між собою)
 
 """
+
+ip = input("Enter ip address: ")
+ip = ip.split(".")
+print("{:10}{:10}{:10}{:10}".format(*ip))
+ip_bin = list(map(lambda x: int(x), ip))
+print("{:08b}  {:08b}  {:08b}  {:08b}".format(*ip_bin))
