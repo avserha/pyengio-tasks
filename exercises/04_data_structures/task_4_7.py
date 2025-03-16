@@ -17,3 +17,6 @@ print.
 """
 
 mac = "AAAA:BBBB:CCCC"
+mac = mac.split(":")
+mac = list(map(lambda x: bin(int(x, 16)), mac))
+print("".join(mac).replace("0b", ""))

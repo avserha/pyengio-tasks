@@ -23,3 +23,7 @@
 """
 
 ip = "192.168.3.1"
+ip = ip.split(".")
+print("{:10}{:10}{:10}{:10}".format(*ip))
+ip_bin = list(map(lambda x: int(x), ip))
+print("{:08b}  {:08b}  {:08b}  {:08b}".format(*ip_bin))
