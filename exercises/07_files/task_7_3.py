@@ -17,3 +17,11 @@ MAC-адреса, має бути оброблена таким чином, що
 1000     0a4b.c380.7d00      Gi0/9
 
 """
+
+cfg = "CAM_table.txt"
+
+with open(cfg) as src:
+    for line in src:
+        if "." in line:
+            cam = line.split()
+            print(f"{cam[0]:10}{cam[1]:20}{cam[3]}")

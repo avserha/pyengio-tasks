@@ -47,4 +47,15 @@ line vty 0 4
 передається як аргумент скрипту.
 """
 
+import sys
+
 ignore = ["duplex", "alias", "configuration", "end", "service"]
+
+if len(sys.argv)>1:
+    cfg = sys.argv[1]
+
+with open(cfg) as f:
+    for line in f:
+        if not line.startswith("!"):
+            if all(i not in line for i in ignore):
+                print(line.replace("\n", ""))

@@ -40,3 +40,13 @@ interface Ethernet0/3
 ...
 
 """
+
+import sys
+
+if len(sys.argv)>1:
+    cfg = sys.argv[1]
+
+with open(cfg) as f:
+    for line in f:
+        if not line.startswith("!"):
+            print(line.replace("\n", ""))

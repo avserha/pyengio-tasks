@@ -62,4 +62,27 @@ config_trunk_sw3.txt. Переконайтеся, що в результаі д�
 вірні словники.
 
 """
+
 from pprint import pprint
+import sys
+
+if len(sys.argv)>1:
+    cfg = sys.argv[1]
+    
+interface_dict = {}
+with open(cfg) as src:
+    section = None
+    for line in src:
+        line = line.rstrip()
+        if not line or line.startswith("!"):
+            continue
+        if not line.startswith(" "):
+            section = line
+        elif section and section.startswith("interface FastEthernet"):
+            intf = section.split()[1]
+            if "switchport" in line:
+                if intf not in interface_dict.keys():
+                    interface_dict[intf] = []
+                interface_dict[intf].append(line[1:])
+
+pprint(interface_dict)

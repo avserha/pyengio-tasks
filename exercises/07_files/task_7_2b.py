@@ -15,4 +15,16 @@ $ python task_7_2b.py config_sw1.txt new_config.txt
 ignore та рядки, що починаються на '!'.
 """
 
+import sys
+
 ignore = ["duplex", "alias", "configuration", "end", "service"]
+
+if len(sys.argv)>2:
+    cfg = sys.argv[1]
+    new_cfg = sys.argv[2]
+    
+with open(cfg) as src, open(new_cfg, "w") as dst:
+    for line in src:
+        if not line.startswith("!"):
+            if all(i not in line for i in ignore):
+                dst.write(line)

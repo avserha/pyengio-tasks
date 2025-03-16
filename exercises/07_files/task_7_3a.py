@@ -37,3 +37,16 @@
 однаковий, то з другого. Так працює за замовчуванням функція sorted та метод
 sort, якщо сортувати перелік списків вище.
 """
+
+cfg = "CAM_table.txt"
+cams = []
+
+with open(cfg) as src:
+    for line in src:
+        if "." in line:
+            cams.append(line.split())
+
+cams.sort(key = lambda x: int(x[0]))
+
+for cam in cams:
+    print(f"{cam[0]:10}{cam[1]:20}{cam[3]}")
