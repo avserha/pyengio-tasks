@@ -34,3 +34,30 @@ Enter IP address: 255.255.255.255
 local broadcast
 
 """
+
+def get_ip():
+    try:
+        ip_str = input("Enter IP address: ")
+        ip = list(map(int, ip_str.split(".")))
+        if len(ip) == 4 and all(0 <= i <= 255 for i in ip):
+            return ip
+    except ValueError:
+        pass
+    return None
+
+while True:
+    ip = get_ip()
+    if ip:
+        break
+    print("Wrong IP address")
+
+if 1 <= ip[0] <= 223:
+    print("unicast")
+elif 224 <= ip[0] <= 239:
+    print("multicast")
+elif ip == [0, 0, 0, 0]:
+    print("unassigned")
+elif ip == [255, 255, 255, 255]:
+    print("local broadcast")
+else:
+    print("unused")

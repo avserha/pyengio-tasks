@@ -22,3 +22,9 @@
 files = [
     "cfg_1.txt", "cfg_4.txt", "cfg_8.txt", "cfg_9.txt", "cfg_12.txt", "cfg_15.txt"
 ]
+
+result = []
+for f in files:
+    result.append("cfg_{:02d}.txt".format(int(f[4:-4])))
+
+print(result)

@@ -46,3 +46,27 @@ $ python task_6_6a.py
 Enter IP address: 50.1.1.1.1
 Wrong IP address
 """
+
+ip_str = input("Enter IP address: ")
+ip_str = ip_str.split(".")
+try:
+    ip = list(map(int, ip_str))
+    for i in ip:
+        if not (0 <= i <= 255):
+            ip = False
+except:
+    ip = False
+if len(ip_str) != 4 or ip == False:
+    print("Wrong IP address")
+else:
+    ip = list(map(int, ip_str))
+    if 1 <= ip[0] <= 223:
+        print("unicast")
+    elif 224 <= ip[0] <= 239:
+        print("multicast")
+    elif ip[0] == 0 and ip[1] == 0 and ip[2] == 0 and ip[3] == 0:
+        print("unassigned")
+    elif ip[0] == 255 and ip[1] == 255 and ip[2] == 255 and ip[3] == 255:
+        print("local broadcast")
+    else:
+        print("unused")
