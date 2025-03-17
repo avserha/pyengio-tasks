@@ -39,3 +39,23 @@ Out[13]:
  ('Loopback0', '10.2.2.2', 'up', 'up')]
 
 """
+
+def parse_sh_ip_int_br(filename):
+    result = []
+    collumn_pos = []
+    with open(filename, encoding="utf-8") as f:
+        for line in f:
+            if line.startswith("Interface"):
+                collumn_pos = [line.find("Interface"), \
+                                line.find("IP-Address"), \
+                                line.find("OK?"), \
+                                line.find("Method"), \
+                                line.find("Status"), \
+                                line.find("Protocol")]
+            if collumn_pos and line.startswith("FastEthernet") or line.startswith("Loopback"):
+                intf = line[collumn_pos[0]:collumn_pos[1]].strip()
+                ip = line[collumn_pos[1]:collumn_pos[2]].strip()
+                status = line[collumn_pos[4]:collumn_pos[5]].strip()
+                protocol = line[collumn_pos[5]:].strip()
+                result.append((intf, ip, status, protocol))
+    return result

@@ -28,3 +28,13 @@ Out[10]:
  ('10.0.19.1', '255.255.255.0')]
 
 """
+
+def get_ip_from_cfg(filename):
+    result = []
+    with open(filename, encoding="utf-8") as f:
+        for line in f:
+            if line.startswith(" ip address"):
+                ip = line.split()[-2]
+                mask = line.split()[-1]
+                result.append((ip, mask))
+    return result

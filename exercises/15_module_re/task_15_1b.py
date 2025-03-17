@@ -38,3 +38,18 @@ In [8]: pprint(get_ip_from_cfg("config_r2.txt"), sort_dicts=False)
  'Ethernet0/2': [('10.0.29.2', '255.255.255.0')]}
 
 """
+
+def get_ip_from_cfg(filename):
+    result = {}
+    intf = None
+    with open(filename, encoding="utf-8") as f:
+        for line in f:
+            if line.startswith("interface"):
+                intf = line.split()[-1]
+            if line.startswith(" ip address"):
+                if intf not in result:
+                    result[intf] = []
+                ip = line.split()[2]
+                mask = line.split()[3]
+                result[intf].append((ip, mask))
+    return result

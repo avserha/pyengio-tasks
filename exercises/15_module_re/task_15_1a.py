@@ -28,3 +28,16 @@ Out[2]:
  'Ethernet0/2': ('10.0.19.1', '255.255.255.0')}
 
 """
+
+def get_ip_from_cfg(filename):
+    result = {}
+    intf = None
+    with open(filename, encoding="utf-8") as f:
+        for line in f:
+            if line.startswith("interface"):
+                intf = line.split()[-1]
+            if line.startswith(" ip address"):
+                ip = line.split()[2]
+                mask = line.split()[3]
+                result[intf] = (ip, mask)
+    return result
