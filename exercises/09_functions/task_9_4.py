@@ -62,6 +62,7 @@ Out[6]:
 У завданнях 9го розділу і далі, крім зазначеної функції, можна створювати
 будь-які додаткові функції.
 """
+
 access_dict = {"FastEthernet0/12": 10, "FastEthernet0/14": 11}
 access_dict_2 = {
     "FastEthernet0/3": 100,
@@ -78,3 +79,14 @@ access_cmd_list = [
     "spanning-tree bpduguard enable",
 ]
 cmd_list = ["switchport mode access", "switchport access vlan"]
+
+def generate_access_config(intf_vlan_dict, access_template):
+  result = []
+  for intf in intf_vlan_dict:
+    result.append(f"interface {intf}")
+    for cmd in access_template:
+      if "vlan" in cmd:
+        result.append(f"{cmd} {intf_vlan_dict[intf]}")
+      else:
+        result.append(cmd)
+  return result

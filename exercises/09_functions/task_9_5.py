@@ -74,3 +74,16 @@ trunk_dict_2 = {
     "FastEthernet0/15": [111, 130],
     "FastEthernet0/14": [117],
 }
+
+def generate_trunk_config(intf_vlan_dict, trunk_template):
+  result = []
+  for intf in intf_vlan_dict:
+    result.append(f"interface {intf}")
+    for cmd in trunk_template:
+      if cmd.startswith("switchport trunk allowed vlan"):
+        vlans = list(map(str, intf_vlan_dict[intf]))
+        vlans_str = ",".join(vlans)
+        result.append(f"{cmd} {vlans_str}")
+      else:
+        result.append(cmd)
+  return result

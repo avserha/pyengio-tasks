@@ -44,3 +44,20 @@ Out[5]:
 У завданнях 9го розділу і далі, крім зазначеної функції, можна створювати
 будь-які додаткові функції.
 """
+
+def get_int_vlan_map(config_filename):
+  access = {}
+  trunk = {}
+  with open(config_filename) as cfg:
+    for line in cfg:
+      if line.startswith("!"):
+        continue
+      if not line.startswith(" "):
+        section = line
+      if "interface" in section:
+        intf = section.split()[-1]
+        if "allowed vlan" in line:
+          trunk[intf] = list(map(int, line.strip().split()[-1].split(",")))
+        if "access vlan" in line:
+          access[intf] = int(line.strip().split()[-1])
+  return access, trunk

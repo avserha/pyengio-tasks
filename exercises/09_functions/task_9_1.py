@@ -38,3 +38,9 @@ aa:aa:bb:bb:cc:cc
 
 mac_list = ["1a1b.2c2d.3e3f", "aaaa.bbbb.cccc", "1111.2222.3333"]
 
+def convert_mac(m):
+   result = []
+   mac = m.replace(".", "") 
+   for i in range(0, len(mac), 2):
+      result.append(mac[i:i+2])
+   return ":".join(result)

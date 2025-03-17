@@ -28,7 +28,6 @@ In [2]: pprint(generate_trunk_config(trunk_dict, trunk_cmd_list))
 будь-які додаткові функції.
 """
 
-
 trunk_cmd_list = [
     "switchport mode trunk",
     "switchport trunk native vlan 999",
@@ -40,3 +39,17 @@ trunk_dict = {
     "FastEthernet0/2": [11, 30],
     "FastEthernet0/4": [17],
 }
+
+
+def generate_trunk_config(intf_vlan_dict, trunk_template):
+  result = {}
+  for intf in intf_vlan_dict:
+    result[intf] = []
+    for cmd in trunk_template:
+      if cmd.startswith("switchport trunk allowed vlan"):
+        vlans = list(map(str, intf_vlan_dict[intf]))
+        vlans_str = ",".join(vlans)
+        result[intf].append(f"{cmd} {vlans_str}")
+      else:
+        result[intf].append(cmd)
+  return result
