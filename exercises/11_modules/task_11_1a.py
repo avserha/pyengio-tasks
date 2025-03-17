@@ -37,3 +37,15 @@ Input In [11], in <cell line: 1>()
 ...
 ValueError: '1111WWWW3333' does not appear to be a MAC address
 """
+
+from task_11_1 import convert_mac
+
+def convert_mac_list(mac_list, strict = False):
+  result = []
+  for mac in mac_list:
+    try:
+      result.append(convert_mac(mac))
+    except:
+      if strict:
+        convert_mac(mac)
+  return result

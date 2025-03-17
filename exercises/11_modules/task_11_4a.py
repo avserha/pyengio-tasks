@@ -82,9 +82,23 @@ In [7]: pprint(unique_network_map(input_topology))
 
 """
 
+from draw_network_graph import draw_topology
+from task_11_4 import create_network_map
+
 infiles = [
     "sh_cdp_n_sw1.txt",
     "sh_cdp_n_r1.txt",
     "sh_cdp_n_r2.txt",
     "sh_cdp_n_r3.txt",
 ]
+
+def unique_network_map(topology_dict):
+    data = topology_dict
+    keys = tuple(data.values())
+    for i in keys:
+        if i in data.keys() and i in data.values():
+            del data[i]
+    return data
+
+topology = create_network_map(infiles)
+draw_topology(topology)

@@ -44,9 +44,20 @@ In [4]: pprint(create_network_map(["sh_cdp_n_sw1.txt", "sh_cdp_n_r1.txt"]), sort
  ('R1', 'Eth0/0'): ('SW1', 'Eth0/1')}
 
 """
+
+from task_11_3 import parse_cdp_neighbors
+
 infiles = [
     "sh_cdp_n_sw1.txt",
     "sh_cdp_n_r1.txt",
     "sh_cdp_n_r2.txt",
     "sh_cdp_n_r3.txt",
 ]
+
+def create_network_map(filenames):
+    result = {}
+    for file in filenames:
+        with open(file) as f:
+            data = parse_cdp_neighbors(f.read())
+            result = {**result, **data}
+    return result

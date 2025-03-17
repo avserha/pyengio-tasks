@@ -66,3 +66,28 @@ ValueError                                Traceback (most recent call last)
 ValueError: Після 3 спроб не було введено правильну адресу
 
 """
+
+def prompt_user_ip(max_retry = 5, ensure_unicast = False):
+  count = 0
+  correct = False
+  while count < max_retry:
+    ip = input("Введіть IP-адресу: ").split(".")
+    count += 1
+    if len(ip) != 4:
+      print("Неправильна IP-адреса")
+      continue
+    try:
+      if all(0 <= int(i) <= 255 for i in ip):
+        if ensure_unicast:
+          if 1 <= int(ip[0]) <= 223:
+            return ".".join(ip)
+          else:
+            print("Неправильна IP-адреса. Введіть IP-адресу в діапазоні unicast: 1-223")
+        else:
+          return ".".join(ip)
+    except:
+      print("Неправильна IP-адреса")
+      continue
+  else:
+    raise ValueError(f"Після {max_retry} спроб не було введено правильну адресу")
+
