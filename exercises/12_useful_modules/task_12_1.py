@@ -16,3 +16,15 @@ subprocess). IP-адреса вважається доступною, якщо �
 перевіряти саме код. Це зроблено для спрощення тестів.
 
 """
+import subprocess
+
+def ping_ip_addresses(ip_list):
+    ip_list_ok = []
+    ip_list_not_ok = []
+    for ip in ip_list:
+        status = subprocess.run(["ping", "-n", "4", ip], stdout=subprocess.PIPE, stderr=subprocess.STDOUT).returncode
+        if status == 0:
+            ip_list_ok.append(ip)
+        else:
+            ip_list_not_ok.append(ip)
+    return ip_list_ok, ip_list_not_ok
