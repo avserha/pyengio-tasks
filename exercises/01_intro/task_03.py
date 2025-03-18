@@ -21,4 +21,3 @@ start_data = start_data.replace(",", "")
 start_data = start_data.replace(".", "")
 start_data = start_data.split()
 print(start_data)
-

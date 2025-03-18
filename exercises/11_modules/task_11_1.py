@@ -68,6 +68,7 @@ correct_mac_example = [
 
 wrong_mac_example = ["1a1b.rrrr.3e3f", "1111tttt3333", "1111-2222-33"]
 
+
 def convert_mac(mac_str):
     allowed_symbols = "abcdef0123456789"
     mac = mac_str.replace(".", "").replace("-", "").replace(":", "")

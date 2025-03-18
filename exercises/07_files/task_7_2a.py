@@ -51,11 +51,10 @@ import sys
 
 ignore = ["duplex", "alias", "configuration", "end", "service"]
 
-if len(sys.argv)>1:
+if len(sys.argv) > 1:
     cfg = sys.argv[1]
-
-with open(cfg) as f:
-    for line in f:
-        if not line.startswith("!"):
-            if all(i not in line for i in ignore):
-                print(line.replace("\n", ""))
+    with open(cfg, encoding="utf-8") as f:
+        for line in f:
+            if not line.startswith("!"):
+                if all(i not in line for i in ignore):
+                    print(line.replace("\n", ""))

@@ -32,12 +32,17 @@ Reachable    Unreachable
 
 """
 
+
 def print_ip_table(reach_ip, unreach_ip):
     print("{:12} {:12}".format("Reachable", "Unreachable"))
     print("{:12} {:12}".format("-----------", "-------------"))
-    count_max = len(reach_ip) if len(reach_ip) > len(unreach_ip) else len(unreach_ip)
+    if len(reach_ip) > len(unreach_ip):
+        count_max = len(reach_ip)
+    else:
+        count_max = len(unreach_ip)
     count = 0
     while count < count_max:
-        print("{:12} {:12}".format(reach_ip[count] if count < len(reach_ip) else "", unreach_ip[count] if count < len(unreach_ip) else ""))
+        reachable_ip = reach_ip[count] if count < len(reach_ip) else ""
+        unreachable_ip = unreach_ip[count] if count < len(unreach_ip) else ""
+        print("{:12} {:12}".format(reachable_ip, unreachable_ip))
         count += 1
-        

@@ -13,11 +13,11 @@ Cisco MAC-адреси використовуються у форматі XXXX.X
 $ python task_6_1.py
 ['aabb.cc80.7000', 'aabb.dd80.7340', 'aabb.ee80.7000', 'aabb.ff80.7000']
 
-Список mac не можна змінювати вручну, всі зміни треба робити за допомогою Python
+Список mac не можна змінювати вручну, всі зміни треба робити
+за допомогою Python
 """
 
 mac = ["aabb:cc80:7000", "aabb:dd80:7340", "aabb:ee80:7000", "aabb:ff80:7000"]
 
 result = list(map(lambda x: x.replace(":", "."), mac))
-
 print(result)

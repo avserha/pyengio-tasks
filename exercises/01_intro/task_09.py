@@ -26,4 +26,3 @@ for idx, num in enumerate(numbers):
     if idx < len(numbers) - 1:
         print("*" * 30)
 print("=" * 30)
-

@@ -34,5 +34,3 @@ if user_color.lower() in colors:
     print("Такий колір є")
 else:
     print("У списку colors немає такого кольору")
-
-

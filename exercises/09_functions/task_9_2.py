@@ -49,15 +49,20 @@ False
 будь-які додаткові функції.
 """
 
-ip_list = ["10.1.1.1", "10.3.a.a", "500.1.1.1", "150.168.100.1", "62.150.240.300"]
+ip_list = ["10.1.1.1",
+           "10.3.a.a",
+           "500.1.1.1",
+           "150.168.100.1",
+           "62.150.240.300"]
 
-def check_ip(ip_str):
+
+def check_ip(ip_str: str) -> bool:
     ip = ip_str.split(".")
     if len(ip) != 4:
         return False
     try:
         ip = list(map(int, ip))
-    except:
+    except ValueError:
         return False
     for i in ip:
         if not 0 <= i <= 255:

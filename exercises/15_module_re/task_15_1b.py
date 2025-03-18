@@ -39,7 +39,8 @@ In [8]: pprint(get_ip_from_cfg("config_r2.txt"), sort_dicts=False)
 
 """
 
-def get_ip_from_cfg(filename):
+
+def get_ip_from_cfg(filename: str) -> dict:
     result = {}
     intf = None
     with open(filename, encoding="utf-8") as f:

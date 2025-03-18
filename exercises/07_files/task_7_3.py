@@ -20,7 +20,7 @@ MAC-адреса, має бути оброблена таким чином, що
 
 cfg = "CAM_table.txt"
 
-with open(cfg) as src:
+with open(cfg, encoding="utf-8") as src:
     for line in src:
         if "." in line:
             cam = line.split()

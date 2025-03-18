@@ -15,14 +15,14 @@ trunk_cmd_list.
 Приклад роботи функції
 In [2]: pprint(generate_trunk_config(trunk_dict, trunk_cmd_list))
 {'FastEthernet0/1': ['switchport mode trunk',
-                     'switchport trunk native vlan 999',
-                     'switchport trunk allowed vlan 10,20,30'],
+                    'switchport trunk native vlan 999',
+                    'switchport trunk allowed vlan 10,20,30'],
  'FastEthernet0/2': ['switchport mode trunk',
-                     'switchport trunk native vlan 999',
-                     'switchport trunk allowed vlan 11,30'],
+                    'switchport trunk native vlan 999',
+                    'switchport trunk allowed vlan 11,30'],
  'FastEthernet0/4': ['switchport mode trunk',
-                     'switchport trunk native vlan 999',
-                     'switchport trunk allowed vlan 17']}
+                    'switchport trunk native vlan 999',
+                    'switchport trunk allowed vlan 17']}
 
 У завданнях 9го розділу і далі, крім зазначеної функції, можна створювати
 будь-які додаткові функції.
@@ -41,15 +41,15 @@ trunk_dict = {
 }
 
 
-def generate_trunk_config(intf_vlan_dict, trunk_template):
-  result = {}
-  for intf in intf_vlan_dict:
-    result[intf] = []
-    for cmd in trunk_template:
-      if cmd.startswith("switchport trunk allowed vlan"):
-        vlans = list(map(str, intf_vlan_dict[intf]))
-        vlans_str = ",".join(vlans)
-        result[intf].append(f"{cmd} {vlans_str}")
-      else:
-        result[intf].append(cmd)
-  return result
+def generate_trunk_config(intf_vlan_dict: dict, trunk_template: list) -> dict:
+    result = {}
+    for intf in intf_vlan_dict:
+        result[intf] = []
+        for cmd in trunk_template:
+            if cmd.startswith("switchport trunk allowed vlan"):
+                vlans = list(map(str, intf_vlan_dict[intf]))
+                vlans_str = ",".join(vlans)
+                result[intf].append(f"{cmd} {vlans_str}")
+            else:
+                result[intf].append(cmd)
+    return result

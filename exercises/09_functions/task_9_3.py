@@ -77,13 +77,13 @@ Out[8]:
 У завданнях 9го розділу і далі, крім зазначеної функції, можна створювати
 будь-які додаткові функції.
 """
-from pprint import pprint
 
 ignore_list = ["duplex", "alias exec", "Current configuration", "service"]
 
-def clean_config(config_filename, ignore_lines):
+
+def clean_config(config_filename: str, ignore_lines: list) -> list:
     result = []
-    with open(config_filename) as src:
+    with open(config_filename, encoding="utf-8") as src:
         for line in src:
             if line.startswith("!"):
                 continue
@@ -93,5 +93,3 @@ def clean_config(config_filename, ignore_lines):
                 else:
                     result.append(line.strip())
     return result
-
-pprint(clean_config("config_r2_short.txt", ["ip", "service", "line", "alias"]))

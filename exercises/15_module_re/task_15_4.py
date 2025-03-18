@@ -28,7 +28,8 @@ Out[15]: ['Loopback0', 'Tunnel0', 'Ethernet0/1', 'Ethernet0/3.100', 'Ethernet1/0
 
 """
 
-def get_ints_without_description(filename):
+
+def get_ints_without_description(filename: str) -> list:
     result = []
     intf, found_descr = None, False
     with open(filename, encoding="utf-8") as f:

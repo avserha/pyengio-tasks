@@ -8,15 +8,15 @@
 Функція clean_config повинна мати такі параметри:
 * config_filename - чекає як аргумент на ім'я конфігураційного файлу
 * ignore_lines - чекає як аргумент список рядків з підстроками, які треба
-  ігнорувати.  Значення за замовчуванням None. Тобто за замовчуванням жодні рядки
-  не ігноруються
+    ігнорувати.  Значення за замовчуванням None. Тобто за замовчуванням жодні рядки
+    не ігноруються
 * ignore_exclamation - контролює чи ігноруються рядки, які починаються зі знака
-  оклику. Можливі значення True/False. Значення за промовчанням True
+    оклику. Можливі значення True/False. Значення за промовчанням True
 * strip_lines - контролює видалення пробілу на початку рядка та перекладу рядка
-  в кінці. True - видалити пробілу на початку рядка та переклад наприкінці,
-  False - не видаляти. Можливі значення True/False. Значення за замовчуванням False
+    в кінці. True - видалити пробілу на початку рядка та переклад наприкінці,
+    False - не видаляти. Можливі значення True/False. Значення за замовчуванням False
 * delete_empty_lines – контролює видалення порожніх рядків. True – видаляти,
-  False – ні. Можливі значення True/False. Значення за замовчуванням True
+    False – ні. Можливі значення True/False. Значення за замовчуванням True
 
 Для зручності всі значення за замовчуванням для необов'язкових параметрів:
 * ignore_lines - None
@@ -27,11 +27,11 @@
 Функція clean_config обробляє конфігураційний файл та повертає список команд із
 зазначеного конфігураційного файлу:
 * якщо параметр ignore_lines передає список рядків - виключаючи рядки
-  конфігурації, в яких містяться рядки зі списку ignore_lines.
+    конфігурації, в яких містяться рядки зі списку ignore_lines.
 * якщо ignore_exclamation дорівнює True - виключаючи рядки, які починаються з '!'
 * якщо delete_empty_lines дорівнює True - виключаючи порожні рядки
 * якщо strip_lines дорівнює True - рядки у списку повинні бути без пробілів на
-  початку та переведення рядка в кінці рядка
+    початку та переведення рядка в кінці рядка
 
 
 Приклад роботи функції:
@@ -93,16 +93,24 @@ Out[5]:
 
 ignore_list = ["duplex", "alias exec", "Current configuration", "service"]
 
-def clean_config(config_filename, ignore_lines = None, ignore_exclamation = True, strip_lines = False, delete_empty_lines = True):
-  result = []
-  with open(config_filename) as src:
-    for line in src:
-      if (line.startswith("!") and ignore_exclamation) \
-        or (line == "\n" and delete_empty_lines) \
-        or (ignore_lines is not None and not all(i not in line for i in ignore_lines)):
-        continue
-      if strip_lines:
-        result.append(line.strip())
-      else:
-        result.append(line)
-  return result
+
+def clean_config(config_filename: str,
+                 ignore_lines: list | None = None,
+                 ignore_exclamation: bool = True,
+                 strip_lines: bool = False,
+                 delete_empty_lines: bool = True) -> list:
+    if ignore_lines is None:
+        ignore_lines = []
+    result = []
+    with open(config_filename, encoding="utf-8") as src:
+        for line in src:
+            if (line.startswith("!") and ignore_exclamation) \
+                or (line == "\n" and delete_empty_lines) \
+                or (ignore_lines is not None
+                    and not all(i not in line for i in ignore_lines)):
+                continue
+            if strip_lines:
+                result.append(line.strip())
+            else:
+                result.append(line)
+    return result

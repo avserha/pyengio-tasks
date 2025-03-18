@@ -49,26 +49,29 @@ Out[4]:
 
 """
 
-from pprint import pprint
 
-def convert_ranges_to_ip_list(ip_list):
-    ip_list_new = []
+def convert_ranges_to_ip_list(ip_list: list) -> list:
+    result = []
     for ip in ip_list:
         if "-" in ip:
             ip_list = ip.split(".")
             if len(ip_list) == 4:
-                ip_list_new.append(".".join(ip_list[0:3]) + "." + ip_list[3].split("-")[0])
-                for i in range(1, int(ip_list[3].split("-")[1]) - int(ip_list[3].split("-")[0]) + 1):
-                    ip_list_new.append(".".join(ip_list[0:3]) + "." + str(int(ip_list[3].split("-")[0]) + i))
+                ip = ".".join(ip_list[0:3]) + "." + ip_list[3].split("-")[0]
+                result.append(ip)
+                ip_start = int(ip_list[3].split("-")[0])
+                ip_end = int(ip_list[3].split("-")[1])
+                for i in range(1, ip_end - ip_start + 1):
+                    ip = ".".join(ip_list[0:3])
+                    ip += "." + str(int(ip_list[3].split("-")[0]) + i)
+                    result.append(ip)
             elif len(ip_list) > 4:
                 ip_start = ip.split("-")[0].split(".")
                 ip_end = ip.split("-")[1].split(".")
-                ip_list_new.append(".".join(ip_start))
+                result.append(".".join(ip_start))
                 for i in range(1, int(ip_end[3]) - int(ip_start[3]) + 1):
-                    ip_list_new.append(".".join(ip_start[0:3]) + "." + str(int(ip_start[3]) + i))
+                    ip = ".".join(ip_start[0:3])
+                    ip += "." + str(int(ip_start[3]) + i)
+                    result.append(ip)
         else:
-            ip_list_new.append(ip)
-    return ip_list_new
-
-
-pprint(convert_ranges_to_ip_list(["10.1.1.1", "10.4.10.10-13", "192.168.1.12-192.168.1.15"]))
+            result.append(ip)
+    return result

@@ -34,22 +34,24 @@ Out[17]:
 
 """
 
-def generate_description_from_cdp(filename):
+
+def generate_description_from_cdp(filename: str) -> dict:
     result = {}
     collumn_pos = None
     with open(filename, encoding="utf-8") as f:
         for line in f:
             if line.startswith("Device ID"):
-                collumn_pos = [line.find("Device ID"), \
-                                line.find("Local Intrfce"), \
-                                line.find("Holdtme"), \
-                                line.find("Capability"), \
-                                line.find("Platform"), \
-                                line.find("Port ID")]
+                collumn_pos = [line.find("Device ID"),
+                               line.find("Local Intrfce"),
+                               line.find("Holdtme"),
+                               line.find("Capability"),
+                               line.find("Platform"),
+                               line.find("Port ID")]
                 continue
             if collumn_pos:
                 device_id = line[collumn_pos[0]:collumn_pos[1]].strip()
                 intf = line[collumn_pos[1]:collumn_pos[2]].strip()
                 port_id = line[collumn_pos[5]:].strip()
-                result[intf] = "description Connected to " + device_id + " port " + port_id
+                result[intf] = "description Connected to " \
+                               + device_id + " port " + port_id
     return result

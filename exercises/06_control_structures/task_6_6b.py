@@ -35,6 +35,7 @@ local broadcast
 
 """
 
+
 def get_ip():
     try:
         ip_str = input("Enter IP address: ")
@@ -44,6 +45,7 @@ def get_ip():
     except ValueError:
         pass
     return None
+
 
 while True:
     ip = get_ip()

@@ -29,7 +29,8 @@ Out[10]:
 
 """
 
-def get_ip_from_cfg(filename):
+
+def get_ip_from_cfg(filename: str) -> list:
     result = []
     with open(filename, encoding="utf-8") as f:
         for line in f:

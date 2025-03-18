@@ -2,13 +2,14 @@
 """
 Завдання 9.5
 
-Створити функцію generate_trunk_config, яка створює конфігурацію для trunk-портів.
+Створити функцію generate_trunk_config, яка створює конфігурацію
+для trunk-портів.
 
 Функція повинна мати такі параметри:
 * intf_vlan_dict: очікує як аргумент словник з відповідністю інтерфейс-VLANи
-  (приклад trunk_dict)
+    (приклад trunk_dict)
 * trunk_template: Очікує як аргумент шаблон конфігурації trunk-портів у вигляді
-  списку команд (приклад trunk_cmd_list)
+    списку команд (приклад trunk_cmd_list)
 
 Функція повинна повертати список команд із конфігурацією на основі вказаних
 портів та шаблону trunk_cmd_list. Наприкінці рядків у списку не має бути символ
@@ -75,15 +76,16 @@ trunk_dict_2 = {
     "FastEthernet0/14": [117],
 }
 
-def generate_trunk_config(intf_vlan_dict, trunk_template):
-  result = []
-  for intf in intf_vlan_dict:
-    result.append(f"interface {intf}")
-    for cmd in trunk_template:
-      if cmd.startswith("switchport trunk allowed vlan"):
-        vlans = list(map(str, intf_vlan_dict[intf]))
-        vlans_str = ",".join(vlans)
-        result.append(f"{cmd} {vlans_str}")
-      else:
-        result.append(cmd)
-  return result
+
+def generate_trunk_config(intf_vlan_dict: dict, trunk_template: list) -> list:
+    result = []
+    for intf in intf_vlan_dict:
+        result.append(f"interface {intf}")
+        for cmd in trunk_template:
+            if cmd.startswith("switchport trunk allowed vlan"):
+                vlans = list(map(str, intf_vlan_dict[intf]))
+                vlans_str = ",".join(vlans)
+                result.append(f"{cmd} {vlans_str}")
+            else:
+                result.append(cmd)
+    return result

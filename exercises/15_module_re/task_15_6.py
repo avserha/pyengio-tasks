@@ -62,11 +62,16 @@ Input In [7], in <cell line: 1>()
 ValueError: '1111-2222-33WW' does not appear to be a MAC address
 """
 
-def convert_mac(mac_address):
-    mac_address = mac_address.replace("-", "").replace(".", "").replace(":", "")
-    if len(mac_address) != 12 or not all(i.lower() in "0123456789abcdef" for i in mac_address):
-        raise ValueError(f"'{mac_address}' does not appear to be a MAC address")
-    return ":".join([mac_address[i:i+2] for i in range(0, len(mac_address), 2)])
 
-
-print(convert_mac("1A1B2C2D3E3F"))
+def convert_mac(mac_address: str) -> str:
+    mac_address = mac_address.replace("-", "")
+    mac_address = mac_address.replace(".", "")
+    mac_address = mac_address.replace(":", "")
+    if len(mac_address) != 12 or \
+       not all(i.lower() in "0123456789abcdef" for i in mac_address):
+        raise ValueError(
+            f"'{mac_address}' does not appear to be a MAC address"
+        )
+    return ":".join(
+        [mac_address[i:i+2] for i in range(0, len(mac_address), 2)]
+    )

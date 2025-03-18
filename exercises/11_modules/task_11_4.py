@@ -54,10 +54,11 @@ infiles = [
     "sh_cdp_n_r3.txt",
 ]
 
-def create_network_map(filenames):
+
+def create_network_map(filenames: list) -> dict:
     result = {}
     for file in filenames:
-        with open(file) as f:
+        with open(file, encoding="utf-8") as f:
             data = parse_cdp_neighbors(f.read())
             result = {**result, **data}
     return result

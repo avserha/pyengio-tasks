@@ -54,9 +54,9 @@ try:
     for i in ip:
         if not (0 <= i <= 255):
             ip = False
-except:
+except ValueError:
     ip = False
-if len(ip_str) != 4 or ip == False:
+if len(ip_str) != 4 or ip:
     print("Wrong IP address")
 else:
     ip = list(map(int, ip_str))

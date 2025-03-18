@@ -89,4 +89,4 @@ for intf, vlan_data in trunk.items():
             action = vlan_actions.get(vlan_data[0], "")
             print(f" {command} {action}{','.join(vlan_data[1:])}")
         else:
-            print(f" {command }")
+            print(f" {command}")

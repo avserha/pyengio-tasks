@@ -57,27 +57,31 @@ In [6]: with open("sh_cdp_n_r3.txt") as f:
 
 """
 
-def parse_cdp_neighbors(command_output):
-   """
-   Тут ми передаємо вивід команди одним рядком, тому що саме в такому вигляді
-   буде отримано вивід команди з обладнання. Приймаючи як аргумент вивід
-   команди, замість імені файлу, ми робимо функцію більш універсальною: вона
-   може працювати з файлами і з виводом з обладнання. Плюс вчимося працювати з
-   таким виводом.
-   """
-   output = command_output.split('\n')
-   result = {}
-   table_start = False
-   for line in output:
-      if table_start and line != "":
-         data = line.strip().split()
-         result[(local_device, data[1]+data[2])] = (data[0], data[-2]+data[-1])
-      if line.startswith("Device ID"):
-         table_start = True
-      if "show cdp neighbors" in line:
-         local_device = line.split(">")[0]
-   return result
+
+def parse_cdp_neighbors(command_output: str) -> dict:
+    """
+    Тут ми передаємо вивід команди одним рядком, тому що саме в такому вигляді
+    буде отримано вивід команди з обладнання. Приймаючи як аргумент вивід
+    команди, замість імені файлу, ми робимо функцію більш універсальною: вона
+    може працювати з файлами і з виводом з обладнання. Плюс вчимося працювати з
+    таким виводом.
+    """
+    output = command_output.split('\n')
+    result = {}
+    table_start = False
+    local_device = None
+    for line in output:
+        if "show cdp neighbors" in line:
+            local_device = line.split(">")[0]
+        if table_start and line != "":
+            data = line.strip().split()
+            local_device_tuple = (local_device, data[1] + data[2])
+            result[local_device_tuple] = (data[0], data[-2] + data[-1])
+        if line.startswith("Device ID"):
+            table_start = True
+    return result
+
 
 if __name__ == "__main__":
-    with open("sh_cdp_n_sw1.txt") as f:
+    with open("sh_cdp_n_sw1.txt", encoding="utf-8") as f:
         print(parse_cdp_neighbors(f.read()))

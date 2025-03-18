@@ -17,6 +17,6 @@ Python.
 line = "Guido van Rossum began working on Python in the late 1980s"
 letters = "aeiouy"
 result = line
-for l in letters:
-    result = result.replace(l, l.upper())
+for letter in letters:
+    result = result.replace(letter, letter.upper())
 print(result)

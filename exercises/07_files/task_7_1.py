@@ -13,7 +13,7 @@ Outbound Interface    FastEthernet0/0
 
 """
 
-with open("ospf.txt") as file:
+with open("ospf.txt", encoding="utf-8") as file:
     for line in file:
         parts = line.strip().split()
         prefix = parts[1]

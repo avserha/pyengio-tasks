@@ -14,4 +14,3 @@ start_data = "Python is a high-level, interpreted, general-purpose programming l
 start_data = start_data.replace(",", "")
 start_data = start_data.replace(".", "")
 print(start_data)
-

@@ -13,4 +13,3 @@ start_data = "Python is a high-level, interpreted, general-purpose programming l
 start_data = start_data.replace("Python", "Ruby")
 
 print(start_data)
-

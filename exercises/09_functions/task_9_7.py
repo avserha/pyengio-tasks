@@ -85,21 +85,21 @@ In [6]: pprint(cfg_dict2, sort_dicts=False)
 будь-які додаткові функції.
 """
 
-from pprint import pprint
-
 ignore = ["duplex", "alias", "configuration"]
 
-def convert_config_to_dict(config_filename, ignore_lines):
-  result = {}
-  with open(config_filename) as cfg:
-    for line in cfg:
-      if line.startswith("!") or line == "\n" or not all(i not in line for i in ignore_lines):
-        continue
-      if not line.startswith(" "):
-        section = line.strip()
-        result[section] = []
-      else:
-        result[section].append(line.strip())
-  return result
 
-pprint(convert_config_to_dict("config_sw1.txt", ignore))
+def convert_config_to_dict(config_filename: str, ignore_lines: list) -> dict:
+    result = {}
+    with open(config_filename, encoding="utf-8") as cfg:
+        section = None
+        for line in cfg:
+            if line.startswith("!") \
+               or line == "\n" \
+               or not all(i not in line for i in ignore_lines):
+                continue
+            if not line.startswith(" "):
+                section = line.strip()
+                result[section] = []
+            elif section:
+                result[section].append(line.strip())
+    return result

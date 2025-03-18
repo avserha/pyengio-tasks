@@ -6,9 +6,9 @@
 
 Функція повинна мати два параметри:
 * intf_vlan_dict - очікує як аргумент словник із відповідністю інтерфейс-VLAN
-  (приклад access_dict)
+    (приклад access_dict)
 * access_template - чекає як аргумент списку рядків, які треба додати для
-  кожного інтерфейсу (приклад cmd_list)
+    кожного інтерфейсу (приклад cmd_list)
 
 Функція повинна повертати список усіх портів у режимі access із конфігурацією
 на основі шаблону access_cmd_list. Наприкінці рядків у списку не має бути
@@ -80,13 +80,15 @@ access_cmd_list = [
 ]
 cmd_list = ["switchport mode access", "switchport access vlan"]
 
-def generate_access_config(intf_vlan_dict, access_template):
-  result = []
-  for intf in intf_vlan_dict:
-    result.append(f"interface {intf}")
-    for cmd in access_template:
-      if "vlan" in cmd:
-        result.append(f"{cmd} {intf_vlan_dict[intf]}")
-      else:
-        result.append(cmd)
-  return result
+
+def generate_access_config(intf_vlan_dict: dict,
+                           access_template: list) -> list:
+    result = []
+    for intf in intf_vlan_dict:
+        result.append(f"interface {intf}")
+        for cmd in access_template:
+            if "vlan" in cmd:
+                result.append(f"{cmd} {intf_vlan_dict[intf]}")
+            else:
+                result.append(cmd)
+    return result

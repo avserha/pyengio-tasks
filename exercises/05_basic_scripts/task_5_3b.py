@@ -59,6 +59,8 @@ london_co = {
 }
 
 device = input("Enter device name: ")
-parameter_promt = "Enter parameter name (" + ", ".join(london_co[device].keys()) + "): "
+parameter_promt = "Enter parameter name (" 
+parameter_promt += ", ".join(london_co[device].keys())
+parameter_promt += "): "
 parameter = input(parameter_promt)
 print(london_co[device][parameter])

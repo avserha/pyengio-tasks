@@ -41,12 +41,12 @@ sort, якщо сортувати перелік списків вище.
 cfg = "CAM_table.txt"
 cams = []
 
-with open(cfg) as src:
+with open(cfg, encoding="utf-8") as src:
     for line in src:
         if "." in line:
             cams.append(line.split())
 
-cams.sort(key = lambda x: int(x[0]))
+cams.sort(key=lambda x: int(x[0]))
 
 for cam in cams:
     print(f"{cam[0]:10}{cam[1]:20}{cam[3]}")
